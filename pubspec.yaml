@@ -64,6 +64,7 @@ dependencies:
   expansion_tile_card:
   flutter_phone_direct_caller:
   awesome_dropdown:
+  flutter_svg: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +89,7 @@ flutter:
     - assets/images/logo1.png
     - assets/images/vibrain_logo_w_txt.svg
     - assets/images/vibrain_logo.svg
+    - assets/images/vibrain_logo_w_txt.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
