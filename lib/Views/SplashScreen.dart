@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -6,51 +7,38 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  void loadScreen() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool isLoggedIn = sharedPreferences.get('isLoggedIn')?? false;
+    if (isLoggedIn) {
+      await Future.delayed(Duration(seconds: 5), () {
+        print(sharedPreferences.getString('token'));
+        Navigator.pushReplacementNamed(context, '/dashboard');
+      });
+    } else {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
+
+  }
+
+  void initState(){
+    super.initState();
+    loadScreen();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 260.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/logo.svg',
-                width: 200.0,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 200.0,
-          ),
-          Text(
-            'ViBrain',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w400,
-              color: Colors.grey,
-              fontSize: 15.0,
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            'ALL RIGHTS RESERVED',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w300,
-              color: Colors.grey,
-              fontSize: 12.0,
-            ),
-          ),
-        ],
-      ),
+      backgroundColor: Color(0xFFF5F7F9),
+      body: Center(
+        child: Image.asset(
+            'assets/images/vibrain_logo_w_txt.svg',
+            width: 200.0,
+            scale: 0.8
+        ),
+      )
     );
   }
 }
